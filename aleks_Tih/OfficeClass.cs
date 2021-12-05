@@ -12,7 +12,7 @@ namespace aleks_Tih
     /// </summary>
     public class Office
     {
-        int adress;
+        string adress;
         [JsonInclude]
         public LinkListWorkers workers = new LinkListWorkers();
 
@@ -23,10 +23,10 @@ namespace aleks_Tih
         /// </summary>
         public Office()
         {
-            Adress = 0;
+            Adress = "0";
         }
 
-        public Office(int house)
+        public Office(string house)
         {
             Adress = house;
         }
@@ -45,7 +45,7 @@ namespace aleks_Tih
                 }
             }
         }
-        public int Adress { get => adress; set => adress = value; }
+        public string Adress { get => adress; set => adress = value; }
         public int Count { get => workers.Count; }
         [JsonIgnore]
         public int AllSalary { get => workers.SumSalary(); }

@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,7 +30,7 @@ namespace aleks_Tih
 
         private void AddOffice_button_Click(object sender, RoutedEventArgs e)
         {
-            if (!company.Add(Convert.ToInt32(AdressOffice_textBox.Text)))
+            if (!company.Add(AdressOffice_textBox.Text))
                 MessageBox.Show($"Офис а с адресом *{AdressOffice_textBox.Text}* не удалось добавить");
             DataOffice.ItemsSource = company.GetOffices();
         }
@@ -79,13 +81,23 @@ namespace aleks_Tih
 
         private void Save_button_Click(object sender, RoutedEventArgs e)
         {
-            company.Save();
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            if ((bool)saveFileDialog.ShowDialog())
+            {
+                using (FileStream fs = (FileStream)saveFileDialog.OpenFile())
+                    company.Save(fs);
+            }
         }
 
         private void Load_Click(object sender, RoutedEventArgs e)
         {
-            company.Load();
-            DataOffice.ItemsSource = company.GetOffices();
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            if ((bool)openFileDialog.ShowDialog())
+            {
+                using (FileStream fs = (FileStream)openFileDialog.OpenFile())
+                    company.Load(fs);
+                DataOffice.ItemsSource = company.GetOffices();
+            }
         }
 
         private void AdressOffice_textBox_PreviewKeyDown(object sender, KeyEventArgs e)
@@ -96,7 +108,7 @@ namespace aleks_Tih
 
         private void AdressOffice_textBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            e.Handled = !(Char.IsDigit(e.Text, 0));
+            e.Handled = !(Char.IsLetterOrDigit(e.Text, 0));
         }
 
         private void Name_textBox_PreviewKeyDown(object sender, KeyEventArgs e)

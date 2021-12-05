@@ -16,7 +16,13 @@
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
         <DataGrid x:Name="DataOffice" Grid.Row="0" Grid.Column="0" SelectionChanged="DataOffice_SelectionChanged"/>
-        <DataGrid x:Name="DataWorker" Grid.Row="0" Grid.Column="1"/>
+        <DataGrid x:Name="DataWorker" Grid.Row="0" Grid.Column="1" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Famil}" Header="Фамилия"/>
+                <DataGridTextColumn Binding="{Binding Position}" Header="Должность"/>
+                <DataGridTextColumn Binding="{Binding Salary}" Header="Зарплата"/>
+            </DataGrid.Columns>
+        </DataGrid>
         <Button x:Name="AddOffice_button" Content="Доб. офис" HorizontalAlignment="Left" Margin="315,85,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75" Click="AddOffice_button_Click"/>
         <TextBox x:Name="AdressOffice_textBox" HorizontalAlignment="Left" Height="23" Margin="10,10,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Address" VerticalAlignment="Top" Width="120" PreviewKeyDown="AdressOffice_textBox_PreviewKeyDown" PreviewTextInput="AdressOffice_textBox_PreviewTextInput"/>
         <Button x:Name="DeleteOffice_button" Content="Уд. офис" HorizontalAlignment="Left" Margin="315,110,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75" Click="DeleteOffice_button_Click"/>

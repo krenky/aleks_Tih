@@ -34,7 +34,7 @@ namespace aleks_Tih
         /// </summary>
         /// <param name="House">Адрес офиса</param>
         /// <returns>True - при успешном добавление</returns>
-        public bool Add(int House)
+        public bool Add(string House)
         {
             Office auto = new Office(House);
             if (Count != Company.Length)
@@ -122,7 +122,7 @@ namespace aleks_Tih
         /// </summary>
         /// <param name="House">Адрес(номер дома)</param>
         /// <returns>Объект типа Office</returns>
-        public Office Search(int House)
+        public Office Search(string House)
         {
             for (int i = 0; i < Count; i++)
             {
@@ -203,9 +203,9 @@ namespace aleks_Tih
         //    return false;
         //}
         [STAThread]
-        public bool Save()
+        public bool Save(FileStream fileStream)
         {
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            //SaveFileDialog saveFileDialog = new SaveFileDialog();
             BinaryFormatter formatter = new BinaryFormatter();
             //ConvertToLDepartment();
             //if ((bool)saveFileDialog.ShowDialog())
@@ -213,30 +213,25 @@ namespace aleks_Tih
             //    {
             //        JsonSerializer.Serialize<List<LDepartment>>(new Utf8JsonWriter(fs), lDepartments);
             //    }
-            if ((bool)saveFileDialog.ShowDialog())
-            {
-                using (FileStream fs = (FileStream)saveFileDialog.OpenFile())
-                {
-                    formatter.Serialize(fs, Company);
+                //using (FileStream fs = (FileStream)saveFileDialog.OpenFile())
+                //{
+                    formatter.Serialize(fileStream, Company);
                     return true;
-                }
-            }
-            return false;
         }
-        public void Load()
+        public void Load(FileStream fileStream)
         {
             BinaryFormatter formatter = new BinaryFormatter();
             Office[] offices1 = new Office[10];
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            if ((bool)openFileDialog.ShowDialog())
-            {
+            //OpenFileDialog openFileDialog = new OpenFileDialog();
+            //if ((bool)openFileDialog.ShowDialog())
+            //{
                 try
                 {
-                    using (FileStream fs = (FileStream)openFileDialog.OpenFile())
-                    {
-                        offices1 = (Office[])formatter.Deserialize(fs);
+                    //using (FileStream fs = (FileStream)openFileDialog.OpenFile())
+                    //{
+                        offices1 = (Office[])formatter.Deserialize(fileStream);
                         
-                    }
+                    //}
                     Company = new Office[Company.Length];
                     Count = 0;
                     First = 0;
@@ -254,7 +249,7 @@ namespace aleks_Tih
                 {
                     MessageBox.Show(e.ToString());
                 }
-            }
+            //}
         }
     }
 }
