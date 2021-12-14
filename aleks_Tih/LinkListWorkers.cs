@@ -62,6 +62,11 @@ namespace aleks_Tih
             Count++;
             return true;
         }
+        /// <summary>
+        /// Метод Добавления
+        /// </summary>
+        /// <param name="obj">Работник</param>
+        /// <returns>True: успешное добавление  False: ошибка добавления</returns>
         public bool Add(Worker obj)
         {
             bool check = true;
@@ -152,6 +157,10 @@ namespace aleks_Tih
             }
             return sum;
         }
+        /// <summary>
+        /// Метод конвертирующий структуру списка в перечисление
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable GetWorkers()
         {
             Worker Current = Head.next;
@@ -165,6 +174,10 @@ namespace aleks_Tih
             }
             while (Current != Head);
         }
+        /// <summary>
+        /// Метод конвертирующий структуру списка в List
+        /// </summary>
+        /// <returns></returns>
         public List<Worker> ToList()
         {
             List<Worker> workers = new List<Worker>();
