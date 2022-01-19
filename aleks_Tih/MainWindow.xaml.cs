@@ -67,8 +67,15 @@ namespace aleks_Tih
             try
             {
                 Office office = DataOffice.SelectedItem as Office;
-                office = company.Company1.Where(a => a.Adress == office.Adress).FirstOrDefault();
-                DataWorker.ItemsSource = office.workers.GetWorkers();
+                if (office != null & office.workers.ToList().Count != 0)
+                {
+                    office = company.Company1.Where(a => a.Adress == office.Adress).FirstOrDefault();
+                    DataWorker.ItemsSource = office.workers.GetWorkers();
+                }
+                else
+                {
+                    DataWorker.ItemsSource = null;
+                }
             }
             catch(Exception ex)
             {
